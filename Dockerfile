@@ -27,10 +27,7 @@ RUN mkdir /opt/gradle \
     && unzip -d /opt/gradle gradle.zip \
     && rm gradle.zip 
 
-# setup ENV's
-RUN export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/bin" 
-RUN export GRADLE_HOME="/opt/gradle/gradle-7.0.2" 
-RUN export PATH=$PATH:"$GRADLE_HOME/bin"
+
 
 # setups
 RUN mkdir "$ANDROID_HOME" .android \
@@ -46,3 +43,7 @@ RUN $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --update
 RUN $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" \
     "platforms;android-${ANDROID_VERSION}" \
     "platform-tools"
+# setup ENV's
+ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" 
+ENV GRADLE_USER_HOME="/opt/gradle/gradle-7.0.2"
+ENV PATH=$PATH:"$GRADLE_USER_HOME/bin"
